@@ -1,0 +1,35 @@
+import cv2
+import numpy as np
+
+img = cv2.imread("img.jpg", 0)
+
+# Laplacian
+lap = cv2.Laplacian(img, cv2.CV_64F)
+
+# Sobel
+sobelx = cv2.Sobel(img, cv2.CV_64F, 1, 0)
+sobely = cv2.Sobel(img, cv2.CV_64F, 0, 1)
+sob = cv2.magnitude(sobelx, sobely)
+
+# Prewitt
+kx = np.array([[1,0,-1],[1,0,-1],[1,0,-1]], np.float32)
+ky = np.array([[1,1,1],[0,0,0],[-1,-1,-1]], np.float32)
+prex = cv2.filter2D(img, -1, kx)
+prey = cv2.filter2D(img, -1, ky)
+pre = cv2.magnitude(prex, prey)
+
+# Roberts
+rx = np.array([[1,0],[0,-1]], np.float32)
+ry = np.array([[0,1],[-1,0]], np.float32)
+robx = cv2.filter2D(img, -1, rx)
+roby = cv2.filter2D(img, -1, ry)
+rob = cv2.magnitude(robx, roby)
+
+cv2.imshow("Original", img)
+cv2.imshow("Laplacian", lap)
+cv2.imshow("Sobel", sob)
+cv2.imshow("Prewitt", pre)
+cv2.imshow("Roberts", rob)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
