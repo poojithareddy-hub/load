@@ -1,0 +1,14 @@
+import cv2
+
+# Read grayscale image
+img = cv2.imread("img1.jpg", 0)
+
+# Extract bit planes
+for i in range(8):
+    plane = (img >> i) & 1
+    cv2.imshow(f"Bit Plane {i}", plane * 255)
+
+cv2.imshow("Original Image", img)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
