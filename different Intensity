@@ -1,0 +1,23 @@
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Read image
+img = cv2.imread('plantbw.jpg', 0)
+
+# Contrast Stretching
+cs = np.clip((img - 50) * 255 / (200 - 50), 0, 255).astype(np.uint8)
+
+# Intensity Stretching
+is_img = np.clip((img - 50) * 255 / (200 - 50), 0, 255).astype(np.uint8)
+
+# Bit Plane (7th)
+bp = ((img >> 7) & 1) * 255
+
+# Show images
+plt.subplot(2,2,1), plt.imshow(img, cmap='gray'), plt.title('Original')
+plt.subplot(2,2,2), plt.imshow(cs, cmap='gray'), plt.title('Contrast')
+plt.subplot(2,2,3), plt.imshow(is_img, cmap='gray'), plt.title('Intensity')
+plt.subplot(2,2,4), plt.imshow(bp, cmap='gray'), plt.title('Bitplane')
+
+plt.show()
