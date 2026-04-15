@@ -1,0 +1,14 @@
+import cv2
+from sklearn.decomposition import PCA
+
+img = cv2.imread("image.jpg", 0)
+
+pca = PCA(50)
+comp = pca.fit_transform(img)
+recon = pca.inverse_transform(comp)
+
+cv2.imshow("Original", img)
+cv2.imshow("PCA Image", recon.astype('uint8'))
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
