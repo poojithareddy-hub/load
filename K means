@@ -1,0 +1,19 @@
+import cv2
+import numpy as np
+
+img = cv2.imread('image.jpg')
+data = np.float32(img.reshape((-1, 3)))
+
+_, labels, centers = cv2.kmeans(
+    data, 3, None,
+    (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.2),
+    10, cv2.KMEANS_RANDOM_CENTERS
+)
+
+result = centers[labels.flatten()].reshape(img.shape).astype('uint8')
+
+cv2.imshow("Original", img)
+cv2.imshow("KMeans", result)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
