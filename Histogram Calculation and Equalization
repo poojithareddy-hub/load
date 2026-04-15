@@ -1,0 +1,24 @@
+import cv2
+from matplotlib import pyplot as plt
+# Read grayscale image
+flower = cv2.imread("dark.jpg", 0)
+# Histogram equalization
+flower_equalized = cv2.equalizeHist(flower)
+# Calculate histograms
+flower_hist = cv2.calcHist([flower], [0], None, [256], [0, 256])
+flower_eq_hist = cv2.calcHist([flower_equalized], [0], None, [256], [0, 256])
+# Plot results
+plt.figure(figsize=(10, 4))
+plt.subplot(1, 4, 1)
+plt.title("Original Image")
+plt.imshow(flower, cmap='gray')
+plt.subplot(1, 4, 2)
+plt.title("Equalized Image")
+plt.imshow(flower_equalized, cmap='gray')
+plt.subplot(1, 4, 3)
+plt.title("Original Histogram")
+plt.plot(flower_hist)
+plt.subplot(1, 4, 4)
+plt.title("Equalized Histogram")
+plt.plot(flower_eq_hist)
+plt.show()
