@@ -1,0 +1,28 @@
+import cv2
+import numpy as np
+img = cv2.imread("img2.jpeg", cv2.IMREAD_GRAYSCALE)
+
+if img is None:
+    print("Error: Image not found")
+    exit()
+
+# Reduce resolution
+spatial_256 = cv2.resize(img, (256, 256))
+spatial_128 = cv2.resize(img, (128, 128))
+
+# Resize back for display
+spatial_256 = cv2.resize(spatial_256, img.shape[:2])
+spatial_128 = cv2.resize(spatial_128, img.shape[:2])
+
+# Reduce gray levels
+intensity_64 = (img // 4) * 4    # 6-bit
+intensity_32 = (img // 8) * 8    # 5-bit
+
+cv2.imshow("Original Image", img)
+cv2.imshow("Spatial Resolution 256x256", spatial_256)
+cv2.imshow("Spatial Resolution 128x128", spatial_128)
+cv2.imshow("Intensity Resolution 6-bit", intensity_64)
+cv2.imshow("Intensity Resolution 5-bit", intensity_32)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
