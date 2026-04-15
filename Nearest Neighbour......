@@ -1,0 +1,12 @@
+import cv2
+img = cv2.imread("flower.jpg")
+scale = 2
+nearest = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_NEAREST)
+bilinear = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_LINEAR)
+bicubic = cv2.resize(img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+cv2.imshow("Original", img)
+cv2.imshow("Nearest Neighbor", nearest)
+cv2.imshow("Bilinear", bilinear)
+cv2.imshow("Bicubic", bicubic)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
